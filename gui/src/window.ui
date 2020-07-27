@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.36.0 -->
+<interface>
+  <requires lib="gtk+" version="3.22"/>
+  <object class="GtkWindow" id="homeWindow">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="title" translatable="yes">Crimata Tech</property>
+    <property name="window_position">center</property>
+    <property name="default_width">600</property>
+    <property name="default_height">350</property>
+    <property name="gravity">center</property>
+    <child>
+      <object class="GtkDrawingArea" id="crimataAiBox">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="margin_top">0</property>
+        <property name="margin_bottom">0</property>
+        <style>
+          <class name="crimataAiBox"/>
+        </style>
+      </object>
+    </child>
+    <child type="titlebar">
+      <placeholder/>
+    </child>
+    <style>
+      <class name="window"/>
+    </style>
+  </object>
+</interface>
