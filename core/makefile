@@ -27,19 +27,18 @@ INCLUDE      := \
 	-I ../gui/include/ \
 	-I ../networking/include/ \
 	-I ../audio/include/ \
-	-I /usr/include/gtk-3.0
+	-I /usr/include/gtk-3.0 \
 
 SRC := \
 	$(wildcard src/main.c) \
 	$(wildcard ../gui/src/gtk-cairo_api.c) \
 	$(wildcard ../gui/src/anims.c) \
 	$(wildcard ../gui/src/eases.c) \
-	$(wildcard ../networking/src/package_handler.c) \
 	$(wildcard ../audio/src/audio_handler.c) \
 	$(wildcard ../audio/src/frame_buffer.c) \
 
 
-OBJECTS  := $(SRC:%.c=$(OBJ_DIR)/%.o)
+OBJECTS := $(SRC:%.c=$(OBJ_DIR)/%.o)
 
 
 #  Rules
@@ -78,7 +77,7 @@ build:
 run: $(EXE_DIR)/$(APP_NAME)
 	# remove object file directories
 	rm -rvf $(BUILD_DIR)/audio $(BUILD_DIR)/gui $(BUILD_DIR)/networking
-# 	$<
+	$<
 
 
 clean:
