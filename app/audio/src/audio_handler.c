@@ -14,7 +14,7 @@
 #include "audio_handler.h"
 
 
-#define SAMPLE_RATE  (16000)
+#define SAMPLE_RATE  (48000)
 #define BUFFER_mSECS    (30)
 #define FRAMES_PER_BUFFER (160 * (BUFFER_mSECS/10))
 
@@ -155,6 +155,7 @@ static void handle_input_stream () {
 
 
     inputParameters.device = Pa_GetDefaultInputDevice(); /* default input device */
+
     if (inputParameters.device == paNoDevice) {
         fprintf(stderr,"Error: No default input device.\n");
         goto done;
@@ -271,6 +272,8 @@ done:
 
 
 void init_audio () {
+    puts("Initializing audio stream");
+
     pthread_t in_th, out_th;
     int err = paNoError;
 

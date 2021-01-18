@@ -126,7 +126,7 @@ int main (int argc, char *argv[])
     //! Now, let's kickstarting the main loop.
     pthread_create(&_admin, NULL, (void *) server_connect, NULL);
     pthread_create(&_main, NULL, (void *) main_loop, NULL);
-    // pthread_create(&_audio, NULL, (void *) init_audio, NULL);
+    pthread_create(&_audio, NULL, (void *) init_audio, NULL);
 
 
     gtk_init (&argc, &argv);
