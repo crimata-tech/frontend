@@ -39,7 +39,7 @@ static char* user_id;
 
 void * anim_handler ()
 {
-    // start_up_anim ();
+    standby_anim ();
 
     // while (!exit)
     // {
@@ -122,47 +122,42 @@ int main (int argc, char *argv[])
     pthread_t _admin, _main, _audio;
 
     //! Launch non-UI threads before initializing the UI.
-    //! Le9t's simply try connecting to the server.
+    //! Let's simply try connecting to the server.
     //! Now, let's kickstarting the main loop.
     pthread_create(&_admin, NULL, (void *) server_connect, NULL);
     pthread_create(&_main, NULL, (void *) main_loop, NULL);
-    pthread_create(&_audio, NULL, (void *) init_audio, NULL);
+    // pthread_create(&_audio, NULL, (void *) init_audio, NULL);
 
 
- //    gtk_init (&argc, &argv);
+    gtk_init (&argc, &argv);
 
- //    GError *error = NULL;
- //    builder = gtk_builder_new ();
- //    gtk_builder_add_from_file (builder, "../gui/src/window.ui", &error);
+    GError *error = NULL;
+    builder = gtk_builder_new ();
+    gtk_builder_add_from_file (builder, "../gui/src/window.ui", &error);
 
- //    /* Set up hooks for relevant UI elements. */
- //    homeWindow = gtk_builder_get_object (builder, "homeWindow");
- //    homeBox = gtk_builder_get_object (builder, "homeBox");
- //    crimataAiBox = gtk_builder_get_object (builder, "crimataAiBox");
+    /* Set up hooks for relevant UI elements. */
+    homeWindow = gtk_builder_get_object (builder, "homeWindow");
+    homeBox = gtk_builder_get_object (builder, "homeBox");
+    crimataAiBox = gtk_builder_get_object (builder, "crimataAiBox");
 
- //    /* Allocate area of window to have drawing functionality and set dims. */
- //    create_cairo_surface(crimataAiBox);
+    /* Allocate area of window to have drawing functionality and set dims. */
+    create_cairo_surface(crimataAiBox);
 
- //    /* CrimataAi animations */
-	// pthread_mutex_init (&mutex, NULL);
- //    pthread_create (&drawing_thread, NULL, anim_handler, NULL);
+    /* CrimataAi animations */
+	pthread_mutex_init (&mutex, NULL);
+    pthread_create (&drawing_thread, NULL, anim_handler, NULL);
 
- //    /* Create a timer to invalidate (refresh) crimataAiBox at 60Hz
- //    ** Needs to only be called when crimataAiBox is showing.
- //    */
- //    g_timeout_add (1000 / 60, invalidate_cb, (void *) crimataAiBox);
+    /* Create a timer to invalidate (refresh) crimataAiBox at 60Hz
+    ** Needs to only be called when crimataAiBox is showing.
+    */
+    g_timeout_add (1000 / 60, invalidate_cb, (void *) crimataAiBox);
 
- //    /* Assign UI opertaions using GTK singals */
- //    g_signal_connect (homeWindow, "destroy", G_CALLBACK (gtk_main_quit), NULL);
- //    g_signal_connect (crimataAiBox, "draw", G_CALLBACK (drawing_area_draw_cb), NULL);
- //    g_signal_connect (crimataAiBox, "configure-event", G_CALLBACK (resize_cairo_surface_cb), NULL);
+    /* Assign UI opertaions using GTK singals */
+    g_signal_connect (homeWindow, "destroy", G_CALLBACK (gtk_main_quit), NULL);
+    g_signal_connect (crimataAiBox, "draw", G_CALLBACK (drawing_area_draw_cb), NULL);
+    g_signal_connect (crimataAiBox, "configure-event", G_CALLBACK (resize_cairo_surface_cb), NULL);
 
- //    gtk_main();
-
-    while (1) {
-        sleep(1);
-    }
-
+    gtk_main();
 
     close_audio();
     close_socket();

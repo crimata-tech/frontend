@@ -175,7 +175,10 @@ static void handle_input_stream () {
               paClipOff,      /* we won't output out of range samples so don't bother clipping them */
               i_callback,
               &input_buffer );
-    if( err != paNoError ) goto done;
+    if( err != paNoError ) {
+        puts("Error when opening Port Audio input stream.");
+        goto done;
+    }
 
     err = Pa_StartStream( istream );
     if( err != paNoError ) goto done;
@@ -234,7 +237,10 @@ static void handle_output_stream () {
               paClipOff,
               o_callback,
               &output_buffer );
-    if( err != paNoError ) goto done;
+    if( err != paNoError ) {
+        puts("Error when opening Port Audio output stream.");
+        goto done;
+    }
 
     err = Pa_StartStream( ostream );
     if( err != paNoError ) goto done;

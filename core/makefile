@@ -34,6 +34,7 @@ SRC := \
 	$(wildcard ../gui/src/gtk-cairo_api.c) \
 	$(wildcard ../gui/src/anims.c) \
 	$(wildcard ../gui/src/eases.c) \
+	$(wildcard ../networking/src/package_handler.c) \
 	$(wildcard ../audio/src/audio_handler.c) \
 	$(wildcard ../audio/src/frame_buffer.c) \
 
@@ -45,7 +46,7 @@ OBJECTS := $(SRC:%.c=$(OBJ_DIR)/%.o)
 all: kill clean build $(EXE_DIR)/$(APP_NAME) run
 
 
-#	Compile all src files into object files into object directory 
+#	Compile all src files into object files into object directory
 $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(@D)
 	$(CXX) $(CXXFLAGS) $(INCLUDE) -c $< -o $@

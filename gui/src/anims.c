@@ -51,7 +51,7 @@ void logo (cairo_t *cr, float x1, // circle top
     cairo_fill (cr);
 }
 
-// #include "start_up_anim.c"
+#include "start_up_anim.c"
 #include "recording_anim.c"
 #include "standby_anim.c"
 #include "bounce_anim.c"
