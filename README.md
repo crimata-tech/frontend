@@ -17,8 +17,7 @@ In it's current configuration, the app will:
   5. Visualize what is happening with basic animations.
   
 ## Getting Started
-![Startup GIF](/resources/startup.gif?raw=true "Startup GIF")
-
+![Startup GIF](/resources/startup-anim.gif?raw=true "Startup GIF")
 
 
 ## License
