@@ -39,7 +39,7 @@ static char* user_id;
 
 void * anim_handler ()
 {
-    standby_anim ();
+    start_up_anim ();
 
     // while (!exit)
     // {
