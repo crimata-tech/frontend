@@ -18,6 +18,7 @@ In it's current configuration, the app will:
   
 ## Getting Started
 ![Startup GIF](/resources/startup-anim.gif?raw=true "Startup GIF")
+Hello
 
 
 ## License
