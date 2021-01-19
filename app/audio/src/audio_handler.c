@@ -14,7 +14,7 @@
 #include "audio_handler.h"
 
 
-#define SAMPLE_RATE  (48000)
+#define SAMPLE_RATE  (16000)
 #define BUFFER_mSECS    (30)
 #define FRAMES_PER_BUFFER (160 * (BUFFER_mSECS/10))
 
@@ -158,7 +158,7 @@ static void handle_input_stream () {
 
     if (inputParameters.device == paNoDevice) {
         fprintf(stderr,"Error: No default input device.\n");
-        goto done;
+        // goto done;
     }
     inputParameters.channelCount = 1;                    /* mono input */
     inputParameters.sampleFormat = PA_SAMPLE_TYPE;
@@ -178,11 +178,10 @@ static void handle_input_stream () {
               &input_buffer );
     if( err != paNoError ) {
         puts("Error when opening Port Audio input stream.");
-        goto done;
     }
 
     err = Pa_StartStream( istream );
-    if( err != paNoError ) goto done;
+    // if( err != paNoError ) goto done;
 
     while( (( err = Pa_IsStreamActive( istream ) ) == 1) && streams_open)
     {
@@ -191,21 +190,21 @@ static void handle_input_stream () {
 
     delete_fb(&input_buffer);
 
-    if( err < 0 ) goto done;
+    // if( err < 0 ) goto done;
 
     err = Pa_CloseStream( istream );
-    if( err != paNoError ) goto done;
+    // if( err != paNoError ) goto done;
 
-done:
-    Pa_Terminate();
-    if( err != paNoError )
-    {
-        fprintf( stderr, "An error occured while using the portaudio stream\n" );
-        fprintf( stderr, "Error number: %d\n", err );
-        fprintf( stderr, "Error message: %s\n", Pa_GetErrorText( err ) );
-        err = 1;          /* Always return 0 or 1, but no other return codes. */
-    }
-    printf("input audio stream error code (0 is SUCCESS): %d\n\n", err);
+// done:
+//     Pa_Terminate();
+//     if( err != paNoError )
+//     {
+//         fprintf( stderr, "An error occured while using the portaudio stream\n" );
+//         fprintf( stderr, "Error number: %d\n", err );
+//         fprintf( stderr, "Error message: %s\n", Pa_GetErrorText( err ) );
+//         err = 1;          /* Always return 0 or 1, but no other return codes. */
+//     }
+//     printf("input audio stream error code (0 is SUCCESS): %d\n\n", err);
 }
 
 

@@ -3,7 +3,7 @@
 HEADER_LENGTH = 20
 
     
-def pull(self, socket, cnvrt=False):
+def pull(socket, cnvrt=False):
     """ Recv a message and return type and data. If cnvrt is True and
     type is 'aud', pull returns transcribed audio. """
     msg_header = socket.recv(HEADER_LENGTH)
@@ -20,15 +20,15 @@ def pull(self, socket, cnvrt=False):
     msg_length = int(msg_attrbs[1])
 
     # return package data object
-    package = {'type': msg_type, 'data': self.recvall(socket, msg_length)}
+    package = {'type': msg_type, 'data': recvall(socket, msg_length)}
 
     if cnvrt:
-        if package['type'] == 'aud':
-            package['data'] = self.transcribe(package['data'])
+       if package['type'] == 'aud':
+            package['data'] = transcribe(package['data'])
 
     return package
 
-def push(self, socket, data):
+def push(socket, data):
     """ Send a message of any type. """
     encoded_data = ''.join([data, '\0']).encode('ascii')
 
@@ -39,7 +39,7 @@ def push(self, socket, data):
 
     socket.send(encoded_header + encoded_data)
 
-def recvall(self, socket, length):
+def recvall(socket, length):
     data = bytearray()
     while len(data) < length:
         packet = socket.recv(length - len(data))
@@ -48,7 +48,7 @@ def recvall(self, socket, length):
         data.extend(packet)
     return bytes(data)
 
-def send_all(self, socket, data):
+def send_all(socket, data):
     while data:
         sent = socket.send(data)
         data = data[sent:]
