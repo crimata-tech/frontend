@@ -26,23 +26,19 @@ client_socket, client_address = server_socket.accept()
 print(f"Accepted new connection from {client_address}")
 
 while True:
+
+    print("Listening for packages.")
     package = pull(client_socket)
         
-    if package:
+    # On-connect package
+    if package['type'] == 'con':
 
-        # On-connect package
-        if package['type'] == 'con':
+        # Gather user ID
+        user_id = int(package['data'].decode('ascii'))
+        print(f"Received user ID: {user_id}")
 
-            # Gather user ID
-            user_id = int(package['data'].decode('ascii'))
-            print(f"Received user ID: {user_id}")
+        # Send greeting
+        push(client_socket, "Hello from the Server!")
 
-            # Send greeting
-            push(client_socket, "Hello from the Server!")
-
-        else:
-            push(client_socket, "Received audio!")
-
-    # Send a "ping" to client to prove connection.
-    push(client_socket, "Connection still alive!")
-    time.sleep(2)
+    else:
+        push(client_socket, "Received audio!")
