@@ -1,3 +1,8 @@
+# server/server.py
+
+#! Just for testing
+#! Only accepts one connection
+
 import time
 import socket
 import threading
@@ -16,24 +21,28 @@ server_socket.listen()
 
 print(f'Listening for connections on {IP}:{PORT}')
 
-def server_loop():
-    while True:
-        client_socket, client_address = server_socket.accept()
-        print(f"Accepted new connection from {client_address}")
+# Wait for client connection.
+client_socket, client_address = server_socket.accept()
+print(f"Accepted new connection from {client_address}")
 
-        package = pull(client_socket)
-        if package:
+while True:
+    package = pull(client_socket)
+        
+    if package:
 
-            if package['type'] != 'con':
-                continue
+        # On-connect package
+        if package['type'] == 'con':
 
+            # Gather user ID
             user_id = int(package['data'].decode('ascii'))
-
             print(f"Received user ID: {user_id}")
+
+            # Send greeting
             push(client_socket, "Hello from the Server!")
 
-            while True:
-                push(client_socket, "Connection still alive!")
-                time.sleep(2)
+        else:
+            push(client_socket, "Received audio!")
 
-server_loop()
+    # Send a "ping" to client to prove connection.
+    push(client_socket, "Connection still alive!")
+    time.sleep(2)
